@@ -21,10 +21,10 @@ x1 <- rbindlist(mylist, use.names=TRUE,fill=TRUE)
 #Add in a column with the row ID's 
 x1$Type <- rep(c("IRF", "IR", "IF", "RF", "I", "R", "Fi"), times=(n_max-1))
 
-#x1$Type <- rep(c("IRF", "IR", "IF", "RF", "I", "R", "Fi"), times=(n_max-1))
 
 #summarize data: average and standard deviations across all rarefactions
 ag <- aggregate(. ~ Type, x1, function(x) c(mean = mean(x), sd = sd(x)))
 ag_flat <- do.call("data.frame", ag)
 
+#write summary stats datafile
 write.csv(ag_flat, "Summary_Stats.csv")
