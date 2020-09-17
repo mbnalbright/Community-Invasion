@@ -6,11 +6,12 @@ setwd("~/Desktop/mBio_script/")
 library(vegan)
 
 #read in the data, complete OTU table with samples as rows and OTUs as columns
-#The OTU table- 97% identity OTUS, UPARSE, with singletons removed 
+#The OTU table- 97% identity OTUS, UPARSE, with singletons removed, switch out infile1 for Bacteria versus Fungi OTU table
+#infile1<-"FUN_OTU.csv"
 infile1<- "BAC_OTU.csv"
 OTU_table<- read.table(infile1, header=T, sep=",", row.name=1)
 
-#remove samples that are less than rarefaction number that is chosen in the step below
+#remove samples that are less than rarefaction number that is chosen in the step below-- change rarefaction number on both lines 18 and 24
 
 OTU_table$Total <- rowSums(OTU_table)
 
@@ -25,8 +26,9 @@ rarefied_OTU_matrix=rrarefy(OTU_subset,1020)
 #Change from a matrix to a datatable format
 rarefied_OTU_table <- as.data.frame(rarefied_OTU_matrix, header=T)
 
-#read in metadata
+#read in metadata, switch to Fungi metadata for FUN_OTU table
 infile2<- "Bac_Metadata.csv"
+#infile2<- "Fun_Metadata.csv"
 Bac_metadata<- read.table(infile2, header=T, sep=",", row.name=1)
 
 #merge OTU table and metadata by row.names
@@ -157,6 +159,8 @@ Merged_data_Overall$Percentage_OTUabundance <- Merged_data_Overall$sum_OTU.abund
 
 Merged_data_Overall$sum_OTU.abundance <-NULL
 
+#fixes issue of null OTU abundance in a category
+#change variable.y to Fi .after=6 for PU Fungi Litter, others IR, .after=1
 library(tibble)
 
 if (nrow(Merged_data_Overall) < 7) {
