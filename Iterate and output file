@@ -1,0 +1,30 @@
+#iterate over the function to get the output of multiple rarefactions
+#from n=1, to number of times you want to repeat rarefactions
+n <- 1
+n_max <- 101
+#mylist = data.frame(matrix(nrow=7))
+
+mylist <- list()
+
+while (n < n_max) {
+  
+  print(n)
+  #mylist <- pipeline()
+  mylist[[n]] <- pipeline()
+  n=n+1
+}
+
+#convert nested list to a dataframe in R
+
+x1 <- rbindlist(mylist, use.names=TRUE,fill=TRUE)
+
+#Add in a column with the row ID's 
+x1$Type <- rep(c("IRF", "IR", "IF", "RF", "I", "R", "Fi"), times=(n_max-1))
+
+#x1$Type <- rep(c("IRF", "IR", "IF", "RF", "I", "R", "Fi"), times=(n_max-1))
+
+#summarize data: average and standard deviations across all rarefactions
+ag <- aggregate(. ~ Type, x1, function(x) c(mean = mean(x), sd = sd(x)))
+ag_flat <- do.call("data.frame", ag)
+
+write.csv(ag_flat, "Summary_Stats.csv")
