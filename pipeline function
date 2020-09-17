@@ -1,0 +1,176 @@
+pipeline <- function() {
+
+#go to working folder on the computer
+setwd("~/Desktop/mBio_script/")
+#input packages 
+library(vegan)
+
+#read in the data, complete OTU table with samples as rows and OTUs as columns
+#The OTU table- 97% identity OTUS, UPARSE, with singletons removed 
+infile1<- "BAC_OTU.csv"
+OTU_table<- read.table(infile1, header=T, sep=",", row.name=1)
+
+#remove samples that are less than rarefaction number that is chosen in the step below
+
+OTU_table$Total <- rowSums(OTU_table)
+
+OTU_subset <- subset(OTU_table, (Total > 1020))
+
+#remove sums column before rarefaction
+OTU_subset$Total <- NULL
+
+#rarefy the data- eventually this needs to be done many times to create many tables to process separately
+rarefied_OTU_matrix=rrarefy(OTU_subset,1020)
+
+#Change from a matrix to a datatable format
+rarefied_OTU_table <- as.data.frame(rarefied_OTU_matrix, header=T)
+
+#read in metadata
+infile2<- "Bac_Metadata.csv"
+Bac_metadata<- read.table(infile2, header=T, sep=",", row.name=1)
+
+#merge OTU table and metadata by row.names
+merged.OTU_metadata <- merge(rarefied_OTU_table,Bac_metadata,all.x=T,by='row.names')
+
+#Test if datamerging worked
+#write.csv(merged.OTU_metadata, "merge.data_test.csv")
+
+#subset merged.OTU_metadata by Environment, Invader, and Resident
+#question should I also subset by A, B, C, D ? test this later
+
+#Create A Unique invasion tables
+#12 tables that need to be created and input changed here
+
+DU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+DU_Litter_Final <- rbind(DU_Litter_OTU, UU_Litter_OTU)
+
+
+# change lable name
+
+Subset_Invasion <- DU_Litter_Final
+#sum the number of times that a variable appears in a column
+
+#detach("package:dplyr", unload=TRUE)
+Count_Data <- count(Subset_Invasion, "Type")
+
+write.csv(Count_Data, "Sample_Count.csv")
+
+#For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+
+#copy this average type table for later
+Final_Average_Type <-Avg_Type
+
+
+#transpose
+PA_table <- t(Avg_Type)
+
+#Create a Presence/Absence dataframe
+Avg_Type[Avg_Type > 0] = 1
+
+#fix the rownames
+Avg_Type2 <- Avg_Type[,-1]
+rownames(Avg_Type2) <- Avg_Type[,1]
+
+#transpose
+PA_table <- t(Avg_Type2)
+# turn from numbers into a table
+PA_table2 <- as.data.frame(PA_table)
+
+#Logic statements to categorize each piece of the Venn Diagram
+PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+PA_table2$IRF[PA_table2$IRF < 3] = 0
+PA_table2$IRF[PA_table2$IRF == 3] = 1
+
+PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+PA_table2$IR[PA_table2$IR < 2] = 0
+PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+PA_table2$IR[PA_table2$IR == 2] = 0
+
+
+PA_table2$IF <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+PA_table2$IF[PA_table2$IF < 2] = 0
+PA_table2$IF[PA_table2$IF == 2 & PA_table2$IRF < 1] = 1
+PA_table2$IF[PA_table2$IF == 2] = 0
+
+PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+PA_table2$RF[PA_table2$RF < 2] = 0
+PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+PA_table2$RF[PA_table2$RF == 2] = 0
+
+PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+
+#Subset the table to get just the pieces of the Venn diagram
+
+PA_Grouped <-PA_table2[, c("IRF","IR","IF","RF", "I", "R", "Fi")]
+
+#Sum up the OTUs in each piece of the Venn Diagram and rename the column header
+
+PA_Sums <- as.data.frame(colSums (PA_Grouped, na.rm = FALSE, dims = 1))
+names(PA_Sums)[1] <- "Total"
+
+#get percentage of each OTU type in the Venn diagram
+PA_Sums$Percentage_OTU <- PA_Sums$Total/sum(PA_Sums$Total) *100
+
+PA_Sums$Total <- NULL
+
+#write results
+write.csv(PA_Sums, "Percentage_OTU.csv")
+
+#end of loop for the percentage of OTUs per Venn Diagram Piece (with presence-absence data frame)
+
+
+#New loop to get average number of OTUs per category
+library(data.table)
+
+
+PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+#remove all rows with 0
+PA_long2 <- PA_long[PA_long$value == 1,]
+
+#Take average table made earlier
+#fix rownames and transpose table
+Final_Average_Type2 <- Final_Average_Type[,-1]
+rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+Avg_table_1 <- t(Final_Average_Type2)
+Avg_Table_Final <- as.data.frame(Avg_table_1)
+Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+
+#Subset by the final timepoint data (Final Invaded)
+Avg_long_subset<- subset(Avg_long, (variable == "Final_Invaded"))
+
+#Merge the average data with the type data for the OTUs
+Merged_data_Avg <- merge(Avg_long_subset, PA_long2, by="rn", all.y=T)
+
+#import library to perform the next data processing step with ddply
+library(plyr)
+
+#Sum abundance of OTUs per Categort
+Merged_data_Overall <- ddply(Merged_data_Avg, c("variable.y"), summarise, sum_OTU.abundance =sum(value.x))
+
+#Percentage of OTUabundance per category
+Merged_data_Overall$Percentage_OTUabundance <- Merged_data_Overall$sum_OTU.abundance/sum(Merged_data_Overall$sum_OTU.abundance) *100
+
+Merged_data_Overall$sum_OTU.abundance <-NULL
+
+library(tibble)
+
+if (nrow(Merged_data_Overall) < 7) {
+  Merged_data_Overall <-add_row(Merged_data_Overall,variable.y = "IR", Percentage_OTUabundance = 0, .after=1)
+}
+
+
+#get percentage of each OTU type in the Venn diagram
+write.csv(Merged_data_Overall, "Percentage_OTU_abundance.csv")
+
+my_list <- list("Percent_OTU"=PA_Sums$Percentage_OTU, "Percent_OTU_Abundance"=Merged_data_Overall$Percentage_OTUabundance)
+
+
+return (my_list)  
+
+}
+#end of 2nd loop
