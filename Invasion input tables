@@ -1,0 +1,51 @@
+#Create 12 Unique invasion tables
+
+AU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+AU_Litter_Final <- rbind(AU_Litter_OTU, UU_Litter_OTU)
+
+write.csv(AU_Litter_Final, "Subset_table.csv")
+
+PU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "P" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+PU_Litter_Final <- rbind(PU_Litter_OTU, UU_Litter_OTU)
+
+DU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+DU_Litter_Final <- rbind(DU_Litter_OTU, UU_Litter_OTU)
+
+AP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+PP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="P") & (Invader_Type== "P"))
+AP_Litter_Final <- rbind(AP_Litter_OTU, PP_Litter_OTU)
+
+DP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+PP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="P") & (Invader_Type== "P"))
+DP_Litter_Final <- rbind(DP_Litter_OTU, PP_Litter_OTU)
+
+UP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "U" | Invader_Type =="Killed" | Invader_Type == "None"))
+PP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="P") & (Invader_Type== "P"))
+UP_Litter_Final <- rbind(UP_Litter_OTU, PP_Litter_OTU)
+
+AU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="U") & (Invader_Type== "U"))
+AU_Media_Final <- rbind(AU_Media_OTU, UU_Media_OTU)
+
+PU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "P" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="U") & (Invader_Type== "U"))
+PU_Media_Final <- rbind(PU_Media_OTU, UU_Media_OTU)
+
+DU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+UU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="U") & (Invader_Type== "U"))
+DU_Media_Final <- rbind(DU_Media_OTU, UU_Media_OTU)
+
+AP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+PP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="P") & (Invader_Type== "P"))
+AP_Media_Final <- rbind(AP_Media_OTU, PP_Media_OTU)
+
+DP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+PP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="P") & (Invader_Type== "P"))
+DP_Media_Final <- rbind(DP_Media_OTU, PP_Media_OTU)
+
+UP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "U" | Invader_Type =="Killed" | Invader_Type == "None"))
+PP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="P") & (Invader_Type== "P"))
+UP_Media_Final <- rbind(UP_Media_OTU, PP_Media_OTU)
