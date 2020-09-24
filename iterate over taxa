@@ -1,0 +1,21 @@
+n <- 1
+n_max <- 101
+
+mylist <- list()
+
+while (n < n_max) {
+  
+  print(n)
+  mylist[[n]] <- taxa_strong_pipeline()
+  n=n+1
+}
+
+#switch to taxa_weak_pipeline for weak competitors
+
+library(dplyr)
+Total <-bind_rows(mylist, .id = "row.names")
+write.csv(Total, "file_name.csv")
+
+Total2 <- read.table("file_name.csv",header=T, sep=",")
+summary_Total <- ddply(Total2, c("Family", "Class"), summarise, average_score =mean(Score), sd1_score =sd(Score))
+write.csv(summary_Total, "file_name_Summary.csv")
