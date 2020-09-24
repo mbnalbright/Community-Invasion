@@ -1,4 +1,4 @@
-taxa_pipeline <- function() {
+taxa_strong_pipeline <- function() {
   
   #go to working folder on the computer
   setwd("~/Desktop/mBio_script/")
