@@ -1,0 +1,1710 @@
+taxa_pipeline <- function() {
+  
+  #go to working folder on the computer
+  setwd("~/Desktop/mBio_script/")
+  #input packages 
+  library(vegan)
+  
+  #read in the data, complete OTU table with samples as rows and OTUs as columns
+  #The OTU table- 97% identity OTUS, UPARSE, with singletons removed 
+  #infile1<-"FUN_OTU.csv"
+  infile1<- "BAC_OTU.csv"
+  OTU_table<- read.table(infile1, header=T, sep=",", row.name=1)
+  
+  #remove samples that are less than rarefaction number that is chosen in the step below
+  
+  OTU_table$Total <- rowSums(OTU_table)
+  
+  OTU_subset <- subset(OTU_table, (Total > 1262))
+  
+  #remove sums column before rarefaction
+  OTU_subset$Total <- NULL
+  
+  #rarefy the data- eventually this needs to be done many times to create many tables to process separately
+  rarefied_OTU_matrix=rrarefy(OTU_subset,1262)
+  
+  #Change from a matrix to a datatable format
+  rarefied_OTU_table <- as.data.frame(rarefied_OTU_matrix, header=T)
+  
+  #read in metadata
+  #infile2<- "Fun_Metadata.csv"
+  infile2<- "Bac_Metadata.csv"
+  Bac_metadata<- read.table(infile2, header=T, sep=",", row.name=1)
+  
+  #merge OTU table and metadata by row.names
+  merged.OTU_metadata <- merge(rarefied_OTU_table,Bac_metadata,all.x=T,by='row.names')
+  
+  #Bring in Taxonomic id table for later
+  TAXA<- read.table("BAC_taxa_list97.csv",header=T, sep=",")
+  #TAXA<- read.table("RDP_LSU_FUNGI.csv",header=T, sep=",")
+  
+  #Test if datamerging worked
+  #write.csv(merged.OTU_metadata, "merge.data_test.csv")
+  
+  #subset merged.OTU_metadata by Environment, Invader, and Resident
+  #question should I also subset by A, B, C, D ? test this later
+  
+  #Create A Unique invasion tables
+  #12 tables that need to be created and input changed here
+  
+  #1
+  UP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "U" | Invader_Type =="Killed" | Invader_Type == "None"))
+  PP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="P") & (Invader_Type== "P"))
+  UP_Litter_Final <- rbind(UP_Litter_OTU, PP_Litter_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- UP_Litter_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+  
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+ 
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+  
+  
+  #label event type
+  INV_subset_cast$Event<- "MC2_into_MC1_Litter"
+  RF_subset_cast$Event <- "MC2_into_MC1_Litter"
+ 
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Categort
+  INV_family_1 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_1 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+ 
+  
+  #2 Category
+  DP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+  PP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="P") & (Invader_Type== "P"))
+  DP_Litter_Final <- rbind(DP_Litter_OTU, PP_Litter_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- DP_Litter_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+ 
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+ 
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+ 
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+ 
+  
+  #label event type
+  INV_subset_cast$Event<- "MC4_into_MC1_Litter"
+  RF_subset_cast$Event <- "MC4_into_MC1_Litter"
+ 
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Categort
+  INV_family_2 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_2 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+ 
+  #3 Category
+  AP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+  PP_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="P") & (Invader_Type== "P"))
+  AP_Litter_Final <- rbind(AP_Litter_OTU, PP_Litter_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- AP_Litter_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+ 
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+  
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+  
+  
+  #label event type
+  INV_subset_cast$Event<- "MC3_into_MC1_Litter"
+  RF_subset_cast$Event <- "MC3_into_MC1_Litter"
+  
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_3 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_3 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  #4 Category
+  PU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "P" | Invader_Type =="Killed" | Invader_Type == "None"))
+  UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+  PU_Litter_Final <- rbind(PU_Litter_OTU, UU_Litter_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- PU_Litter_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+ 
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+ 
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+  
+  
+  #label event type
+  INV_subset_cast$Event<- "MC1_into_MC2_Litter"
+  RF_subset_cast$Event <- "MC1_into_MC2_Litter"
+
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+ 
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_4 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_4 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  #5 Category
+  DU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+  UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+  DU_Litter_Final <- rbind(DU_Litter_OTU, UU_Litter_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- DU_Litter_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+  
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+  
+  #label event type
+  INV_subset_cast$Event<- "MC4_into_MC2_Litter"
+  RF_subset_cast$Event <- "MC4_into_MC2_Litter"
+  
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_5 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_5 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+ 
+  
+  #6 Category
+  AU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+  UU_Litter_OTU <- subset(merged.OTU_metadata, (Environment == "Litter")  & (Resident_Type=="U") & (Invader_Type== "U"))
+  AU_Litter_Final <- rbind(AU_Litter_OTU, UU_Litter_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- AU_Litter_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+  
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+ 
+  
+  #label event type
+  INV_subset_cast$Event<- "MC3_into_MC2_Litter"
+  RF_subset_cast$Event <- "MC3_into_MC2_Litter"
+ 
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_6 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_6 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  #merge 6 sets of invasions Litter
+  
+  INV_merge_ALL <- rbind(INV_family_1, INV_family_2,INV_family_3, INV_family_4, INV_family_5, INV_family_6)
+  RF_merge_ALL <- rbind(RF_family_1, RF_family_2,RF_family_3, RF_family_4, RF_family_5, RF_family_6)
+  
+  # aggreagate by family
+  INV_family_merge <- ddply(INV_merge_ALL, c("family", "Class"), summarise, sum_FDI2 =sum(sum_FDI), sum_Count2=sum(sum_Count))
+  RF_family_merge <- ddply(RF_merge_ALL, c("family", "Class"), summarise, sum_FDI2 =sum(sum_FDI), sum_Count2=sum(sum_Count))
+
+  
+
+  #calculate a score count*abundance
+  
+  INV_family_merge$Score <- (INV_family_merge$sum_Count2 * INV_family_merge$sum_FDI2)
+  RF_family_merge$Score <- (RF_family_merge$sum_Count2 * RF_family_merge$sum_FDI2)
+ 
+  
+  #Subset less than Score of > 50
+  INV_merge_ALL_Litter_50 <- subset(INV_family_merge, Score >= 50)
+  RF_merge_ALL_Litter_50 <- subset(RF_family_merge, Score >= 50)
+  
+  
+  #MEDIA section
+  #7
+  UP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "U" | Invader_Type =="Killed" | Invader_Type == "None"))
+  PP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="P") & (Invader_Type== "P"))
+  UP_Media_Final <- rbind(UP_Media_OTU, PP_Media_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- UP_Media_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+ 
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+ 
+  #label event type
+  INV_subset_cast$Event<- "MC2_into_MC1_Media"
+  RF_subset_cast$Event <- "MC2_into_MC1_Media"
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Categort
+  INV_family_7 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_7 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+ 
+  
+  #8 Category
+  DP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+  PP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="P") & (Invader_Type== "P"))
+  DP_Media_Final <- rbind(DP_Media_OTU, PP_Media_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- DP_Media_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+ 
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+
+  #label event type
+  INV_subset_cast$Event<- "MC4_into_MC1_Media"
+  RF_subset_cast$Event <- "MC4_into_MC1_Media"
+ 
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+ 
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Categort
+  INV_family_8 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_8 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  #9 Category
+  AP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="P" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+  PP_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="P") & (Invader_Type== "P"))
+  AP_Media_Final <- rbind(AP_Media_OTU, PP_Media_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- AP_Media_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+ 
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+ 
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+ 
+  #label event type
+  INV_subset_cast$Event<- "MC3_into_MC1_Media"
+  RF_subset_cast$Event <- "MC3_into_MC1_Media"
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+ 
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_9 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_9 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  #10 Category
+  PU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "P" | Invader_Type =="Killed" | Invader_Type == "None"))
+  UU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="U") & (Invader_Type== "U"))
+  PU_Media_Final <- rbind(PU_Media_OTU, UU_Media_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- PU_Media_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+  
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+ 
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+
+  
+  #label event type
+  INV_subset_cast$Event<- "MC1_into_MC2_Media"
+  RF_subset_cast$Event <- "MC1_into_MC2_Media"
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_10 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_10 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  
+  #5 Category
+  DU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "D" | Invader_Type =="Killed" | Invader_Type == "None"))
+  UU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="U") & (Invader_Type== "U"))
+  DU_Media_Final <- rbind(DU_Media_OTU, UU_Media_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- DU_Media_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+ 
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+  
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+ 
+  #label event type
+  INV_subset_cast$Event<- "MC4_into_MC2_Media"
+  RF_subset_cast$Event <- "MC4_into_MC2_Media"
+  
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_11 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_11 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  
+  #12 Category
+  AU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media") & (Resident_Type=="U" |Resident_Type=="None") &(Invader_Type == "A" | Invader_Type =="Killed" | Invader_Type == "None"))
+  UU_Media_OTU <- subset(merged.OTU_metadata, (Environment == "Media")  & (Resident_Type=="U") & (Invader_Type== "U"))
+  AU_Media_Final <- rbind(AU_Media_OTU, UU_Media_OTU)
+  
+  # change lable name
+  
+  Subset_Invasion <- AU_Media_Final
+  
+  #For each table, get the average of groups (Invader_Inoculum, Resident_Control, Final_Invaded) for each OTU (column).
+  Col_number <- ncol(Subset_Invasion)-ncol(Bac_metadata)
+  Avg_Type <- aggregate(Subset_Invasion[, 2:Col_number], list(Subset_Invasion$Type), mean)
+  
+  #copy this average type table for later
+  Final_Average_Type <-Avg_Type
+  
+  #transpose
+  PA_table <- t(Avg_Type)
+  
+  #Create a Presence/Absence dataframe
+  Avg_Type[Avg_Type > 0] = 1
+  
+  #fix the rownames
+  Avg_Type2 <- Avg_Type[,-1]
+  rownames(Avg_Type2) <- Avg_Type[,1]
+  
+  #transpose
+  PA_table <- t(Avg_Type2)
+  # turn from numbers into a table
+  PA_table2 <- as.data.frame(PA_table)
+  
+  
+  #Logic statements to categorize each piece of the Venn Diagram
+  PA_table2$IRF <- PA_table2$Final_Invaded + PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IRF[PA_table2$IRF < 3] = 0
+  PA_table2$IRF[PA_table2$IRF == 3] = 1
+  
+  PA_table2$IR <- PA_table2$Invader_Inoculum + PA_table2$Resident_Control
+  PA_table2$IR[PA_table2$IR < 2] = 0
+  PA_table2$IR[PA_table2$IR == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$IR[PA_table2$IR == 2] = 0
+  
+  
+  PA_table2$INV <- PA_table2$Invader_Inoculum + PA_table2$Final_Invaded
+  PA_table2$INV[PA_table2$INV < 2] = 0
+  PA_table2$INV[PA_table2$INV == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$INV[PA_table2$INV == 2] = 0
+  
+  PA_table2$RF <- PA_table2$Resident_Control+ PA_table2$Final_Invaded
+  PA_table2$RF[PA_table2$RF < 2] = 0
+  PA_table2$RF[PA_table2$RF == 2 & PA_table2$IRF < 1] = 1
+  PA_table2$RF[PA_table2$RF == 2] = 0
+  
+  PA_table2$I <- as.numeric(PA_table2$Invader_Inoculum == 1 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==0)
+  PA_table2$R <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 1 & PA_table2$Final_Invaded ==0)
+  PA_table2$Fi <- as.numeric(PA_table2$Invader_Inoculum == 0 & PA_table2$Resident_Control == 0 & PA_table2$Final_Invaded ==1)
+  
+  #Subset the table to get just the pieces of the Venn diagram
+  
+  PA_Grouped <-PA_table2[, c("IRF","IR","INV","RF", "I", "R", "Fi")]
+  
+  
+  # Get average number of OTUs per category in Final
+  library(data.table)
+  
+  
+  PA_long <-melt(setDT(PA_Grouped, keep.rownames = TRUE), "rn")
+  #remove all rows with 0
+  PA_long2 <- PA_long[PA_long$value == 1,]
+  
+  #Take average table made earlier
+  #fix rownames and transpose table
+  Final_Average_Type2 <- Final_Average_Type[,-1]
+  rownames(Final_Average_Type2) <- Final_Average_Type[,1]
+  Avg_table_1 <- t(Final_Average_Type2)
+  Avg_Table_Final <- as.data.frame(Avg_table_1)
+  
+  #Change format to merge
+  Avg_long <-melt(setDT(Avg_Table_Final, keep.rownames = TRUE), "rn")
+  
+  #Merge the average data with the type data for the OTUs
+  Merged_data_Avg <- merge(Avg_long, PA_long2, by="rn", all.y=T)
+  
+  #subset this data by Invader (INV), Resident (RF)
+  #switch this to I (Non-Invader), R, and IR (Non-Resilient)
+  
+  colnames(Merged_data_Avg)<- c("OTUid","Type","Average_Value", "Category", "Count")
+  
+  Merged_data_Avg2 <- as.data.frame(Merged_data_Avg)
+  
+  #subsets
+  RF_subset <- subset(Merged_data_Avg2, (Category =="RF"))
+  INV_subset <- subset(Merged_data_Avg2, (Category =="INV"))
+  
+  #Reformat to long from wide
+  library(reshape2)
+  INV_subset_cast <- dcast(INV_subset, OTUid ~ Type,value.var = "Average_Value") 
+  RF_subset_cast <- dcast(RF_subset, OTUid ~ Type,value.var = "Average_Value") 
+
+  #Calculate fold change in OTU abundance between Final and Initial
+  INV_subset_cast$FDI <- (INV_subset_cast$Final_Invaded/INV_subset_cast$Invader_Inoculum)
+  RF_subset_cast$FDI <- (RF_subset_cast$Final_Invaded/RF_subset_cast$Resident_Control)
+  
+  
+  #Add in a category column
+  INV_subset_cast$Class<- 'Invader'
+  RF_subset_cast$Class <- 'Resilient'
+
+  #Add count column with 1
+  INV_subset_cast$Count<- 1
+  RF_subset_cast$Count <- 1
+  
+  #label event type
+  INV_subset_cast$Event<- "MC3_into_MC2_Media"
+  RF_subset_cast$Event <- "MC3_into_MC2_Media"
+ 
+  #merge with taxonomic identity table
+  INV_subset_cast_taxa <- merge(INV_subset_cast, TAXA, by="OTUid", all.x=T)
+  RF_subset_cast_taxa <-  merge(RF_subset_cast, TAXA, by="OTUid", all.x=T)
+  
+  # sum of all OTUs in a family
+  #import library to perform the next data processing step with ddply
+  library(plyr)
+  
+  #Sum abundance of OTUs per Category
+  INV_family_12 <- ddply(INV_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+  RF_family_12 <- ddply(RF_subset_cast_taxa, c("family", "Class", "Event"), summarise, sum_FDI =sum(FDI), sum_Count=sum(Count))
+ 
+  #merge 6 sets of invasions Media
+  
+  INV_merge_ALLM <- rbind(INV_family_7, INV_family_8,INV_family_9, INV_family_10, INV_family_11, INV_family_12)
+  RF_merge_ALLM <- rbind(RF_family_7, RF_family_8,RF_family_9, RF_family_10, RF_family_11, RF_family_12)
+  
+  # aggreagate by family
+  INV_family_mergeM <- ddply(INV_merge_ALLM, c("family", "Class"), summarise, sum_FDI2 =sum(sum_FDI), sum_Count2=sum(sum_Count))
+  RF_family_mergeM <- ddply(RF_merge_ALLM, c("family", "Class"), summarise, sum_FDI2 =sum(sum_FDI), sum_Count2=sum(sum_Count))
+
+  
+  #calculate a score count*abundance
+  
+  INV_family_mergeM$Score <- (INV_family_mergeM$sum_Count2 * INV_family_mergeM$sum_FDI2)
+  RF_family_mergeM$Score <- (RF_family_mergeM$sum_Count2 * RF_family_mergeM$sum_FDI2)
+ 
+  
+  #Subset Score of > 50
+  INV_merge_ALL_Media_50 <- subset(INV_family_mergeM, Score >= 50)
+  RF_merge_ALL_Media_50 <- subset(RF_family_mergeM, Score >= 50)
+
+  
+  #Merge, Media and litter
+  INV_ML_50 <- merge(INV_merge_ALL_Litter_50, INV_merge_ALL_Media_50, by= "family", all.x=T, all.y=T)
+  RF_ML_50 <- merge(RF_merge_ALL_Litter_50, RF_merge_ALL_Media_50, by= "family", all.x=T, all.y=T)
+
+
+  #keep only families with data across both media and litter
+  INV_ML_50_joint <- na.omit(INV_ML_50)
+  RF_ML_50_joint <- na.omit(RF_ML_50)
+ 
+  
+  #average scores across media and litter
+  INV_ML_50_joint$avg_Score<- ((INV_ML_50_joint$Score.x + INV_ML_50_joint$Score.y)/2)
+  INV_ML_50_joint$sqrt_avg_Score<- sqrt((INV_ML_50_joint$Score.x + INV_ML_50_joint$Score.y)/2)
+  
+  RF_ML_50_joint$avg_Score<- ((RF_ML_50_joint$Score.x + RF_ML_50_joint$Score.y)/2)
+  RF_ML_50_joint$sqrt_avg_Score<- sqrt((RF_ML_50_joint$Score.x + RF_ML_50_joint$Score.y)/2)
+
+  #keep only 3 relevant columns
+  
+  INV_ML_50_FINAL <- data.frame(INV_ML_50_joint$family,INV_ML_50_joint$Class.x, INV_ML_50_joint$sqrt_avg_Score)
+  RF_ML_50_FINAL <- data.frame(RF_ML_50_joint$family,RF_ML_50_joint$Class.x, RF_ML_50_joint$sqrt_avg_Score)
+  
+  colnames(INV_ML_50_FINAL)<- c("Family","Class","Score")
+  colnames(RF_ML_50_FINAL)<- c("Family","Class","Score")
+  
+  
+  #Join INV and RF 
+  
+  Strong_ML_50_FINAL <- merge(INV_ML_50_FINAL, RF_ML_50_FINAL, by= "Family", all.x=T, all.y=T)
+  
+  #Add a column with both-- and Change NA to 0 to add scores for rows with both
+  Strong_ML_50_FINAL$Class.z <- paste(Strong_ML_50_FINAL$Class.x,Strong_ML_50_FINAL$Class.y )
+  Strong_ML_50_FINAL$Score.x[is.na(Strong_ML_50_FINAL$Score.x)] <- 0 
+  Strong_ML_50_FINAL$Score.y[is.na(Strong_ML_50_FINAL$Score.y)] <- 0 
+  Strong_ML_50_FINAL$Score.z <- paste(Strong_ML_50_FINAL$Score.x + Strong_ML_50_FINAL$Score.y )
+  
+  #take out 3 columns of interest
+  Strong_ML_50_FINAL2 <- data.frame(Strong_ML_50_FINAL$Family,Strong_ML_50_FINAL$Class.z, Strong_ML_50_FINAL$Score.z)
+  colnames(Strong_ML_50_FINAL2)<- c("Family","Class","Score")
+  
+  #make a list
+  
+  my_list <- list(Strong_ML_50_FINAL2)
+  
+  return (my_list)  
+  
+}
+#end of 2nd loop
