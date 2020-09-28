@@ -1,0 +1,516 @@
+OTUid,domain,v1,phlya,v2,class,v3,order,v4,family,v5,genus,v6
+OTU_1,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,100%,Alternaria,100%
+OTU_2,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,100%,Westerdykella,100%
+OTU_3,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Leotiomycetes incertae sedis,44%,Leotiomycetes incertae sedis,38%,Collophora,38%
+OTU_4,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Didymellaceae,100%,Peyronellaea,100%
+OTU_5,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,98%,Eupenicillium,78%
+OTU_6,Fungi,99%,Basidiomycota,97%,Tremellomycetes,87%,Tremellales,71%,Christianseniaceae,55%,Christiansenia,55%
+OTU_7,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Emericella,56%
+OTU_8,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,73%,Montagnulaceae,16%,Karstenula,3%
+OTU_9,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Capnodiales,100%,Davidiellaceae,100%,Davidiella,100%
+OTU_10,Fungi,99%,Basidiomycota,87%,Tremellomycetes,57%,Tremellales,43%,Christianseniaceae,26%,Christiansenia,26%
+OTU_11,Fungi,100%,Basidiomycota,94%,Tremellomycetes,77%,Tremellales,68%,Christianseniaceae,60%,Christiansenia,60%
+OTU_13,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Penicillium,100%
+OTU_15,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,77%,Chaetomidium,46%
+OTU_16,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,99%,Trichocomaceae,99%,Aspergillus,76%
+OTU_17,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Gibberella,76%
+OTU_19,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,89%,Chromocleista,87%
+OTU_22,Fungi,100%,Ascomycota,98%,Eurotiomycetes,57%,Eurotiales,45%,Elaphomycetaceae,30%,Monascus,30%
+OTU_23,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Chromocleista,99%
+OTU_24,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Aspergillus,98%
+OTU_25,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,34%,Phaeosphaeria,20%
+OTU_26,Fungi,100%,Ascomycota,100%,Eurotiomycetes,99%,Eurotiales,99%,Elaphomycetaceae,56%,Monascus,56%
+OTU_28,Fungi,98%,Fungi incertae sedis,97%,Zygomycota incertae sedis,97%,Mortierellales,97%,Mortierellaceae,97%,Mortierella,68%
+OTU_29,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mortierellales,100%,Mortierellaceae,100%,Mortierella,100%
+OTU_31,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,98%,Pleospora,32%
+OTU_32,Fungi,99%,Basidiomycota,90%,Tremellomycetes,76%,Tremellales,72%,Christianseniaceae,58%,Christiansenia,58%
+OTU_33,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,25%,Ascomycota incertae sedis,25%,Ascomycota incertae sedis,25%,Curvicladium,25%
+OTU_34,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporales incertae sedis,82%,Camarosporium,82%
+OTU_35,Fungi,93%,Fungi incertae sedis,93%,Zygomycota incertae sedis,93%,Mucorales 2,93%,Cunninghamellaceae,84%,Cunninghamella,84%
+OTU_36,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Lasiosphaeriaceae,62%,Cercophora,51%
+OTU_37,Fungi,100%,Ascomycota,100%,Leotiomycetes,98%,Helotiales,85%,Helotiaceae,67%,Crinula,36%
+OTU_40,Fungi,80%,Fungi incertae sedis,76%,Zygomycota incertae sedis,76%,Mucorales 2,76%,Mucoraceae,59%,Halteromyces,59%
+OTU_41,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,98%,Gibberella,60%
+OTU_42,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Bionectriaceae,100%,Bionectria,100%
+OTU_43,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Xylariales,100%,Amphisphaeriaceae,100%,Pestalotiopsis,100%
+OTU_44,Fungi,100%,Ascomycota,100%,Leotiomycetes,98%,Helotiales,95%,Helotiales incertae sedis,86%,Chalara,79%
+OTU_45,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Coniochaetales,87%,Coniochaetaceae,87%,Coniochaeta,40%
+OTU_46,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Massarinaceae,47%,Massarina,47%
+OTU_47,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreaceae,100%,Hypocrea,87%
+OTU_48,Fungi,100%,Basidiomycota,99%,Tremellomycetes,97%,Tremellales,97%,Tremellaceae,86%,Filobasidiella,53%
+OTU_49,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideales,100%,Dothioraceae,82%,Columnosphaeria,45%
+OTU_50,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,93%,Sporormiaceae,90%,Preussia,68%
+OTU_51,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,80%,Montagnulaceae,78%,Paraphaeosphaeria,76%
+OTU_52,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,99%,Nectriaceae,99%,Gibberella,98%
+OTU_53,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Coniochaetales,97%,Coniochaetaceae,97%,Coniochaeta,58%
+OTU_54,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Lasiosphaeriaceae,99%,Cercophora,86%
+OTU_55,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Clavicipitaceae,100%,Metacordyceps,65%
+OTU_57,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Microascaceae,100%,Doratomyces,100%
+OTU_60,Fungi,100%,Basidiomycota,99%,Agaricomycetes,99%,Agaricales,99%,Tricholomataceae,97%,Mycena,82%
+OTU_62,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Syncephalastrum,100%,Syncephalastrum,100%
+OTU_63,Fungi,100%,Basidiomycota,99%,Tremellomycetes,96%,Tremellales,90%,Christianseniaceae,61%,Christiansenia,61%
+OTU_68,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Xylariales,95%,Amphisphaeriaceae,90%,Pestalotiopsis,88%
+OTU_70,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Aspergillus,52%
+OTU_71,Fungi,100%,Ascomycota,100%,Eurotiomycetes,64%,Chaetothyriales,64%,Herpotrichiellaceae,64%,Cladophialophora,63%
+OTU_72,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,99%,Thamnidiaceae,97%,Dicranophora,92%
+OTU_74,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Clavicipitaceae,100%,Paecilomyces,100%
+OTU_75,Fungi,100%,Basidiomycota,100%,Microbotryomycetes,100%,Sporidiobolales,100%,Sporidiobolales incertae sedis,100%,Rhodotorula 4 -Sporidiobolales,100%
+OTU_76,Fungi,98%,Fungi incertae sedis,98%,Zygomycota incertae sedis,98%,Mortierellales,98%,Mortierellaceae,98%,Mortierella,38%
+OTU_77,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,99%,Neocosmospora,62%
+OTU_81,Fungi,97%,Basidiomycota,89%,Tremellomycetes,50%,Tremellales,45%,Christianseniaceae,40%,Christiansenia,40%
+OTU_82,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pezizaceae,100%,Iodophanus,100%
+OTU_84,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreaceae,100%,Trichoderma,100%
+OTU_85,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,100%,Pyrenochaeta,100%
+OTU_86,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Bionectriaceae,100%,Bionectria,100%
+OTU_87,Fungi,100%,Basidiomycota,100%,Cystobasidiomycetes,100%,Cystobasidiales,100%,Cystobasidiaceae,100%,Rhodotorula 1 -Cystobasidiales,100%
+OTU_89,Fungi,94%,Basidiomycota,90%,Tremellomycetes,72%,Tremellales,72%,Tremellaceae,62%,Asterotremella,62%
+OTU_90,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,99%,Gibberella,99%
+OTU_92,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Cordycipitaceae,100%,Lecanicillium,86%
+OTU_95,Fungi,100%,Ascomycota,100%,Eurotiomycetes,98%,Chaetothyriales,98%,Herpotrichiellaceae,98%,Cladophialophora,96%
+OTU_97,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Cordycipitaceae,40%,Cordyceps,37%
+OTU_99,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Capronia,95%
+OTU_101,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Bionectriaceae,66%,Peethambara,52%
+OTU_102,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Eupenicillium,100%
+OTU_103,Fungi,100%,Ascomycota,100%,Dothideomycetes,98%,Pleosporales,79%,Massarinaceae,54%,Massarina,54%
+OTU_104,Fungi,100%,Basidiomycota,100%,Microbotryomycetes,98%,Leucosporidiales,78%,Leucosporidiales incertae sedis,78%,Leucosporidium,64%
+OTU_105,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Sarcinomyces,72%
+OTU_107,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,89%,Westerdykella,87%
+OTU_109,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Leotiomycetes incertae sedis,48%,Leotiomycetes incertae sedis,32%,Collophora,32%
+OTU_110,Fungi,99%,Basidiomycota,88%,Tremellomycetes,79%,Tremellales,77%,Christianseniaceae,72%,Christiansenia,72%
+OTU_111,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 1,100%,Mucorales 1 incertae sedis,100%,Umbelopsis,100%
+OTU_112,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideales,100%,Dothideaceae,88%,Coniozyma,73%
+OTU_114,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,73%,Massarinaceae,33%,Massarina,31%
+OTU_118,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideomycetes incertae sedis,100%,Dothideomycetes incertae sedis,100%,Kirschsteiniothelia,100%
+OTU_119,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pyronemataceae,99%,Pseudombrophila,99%
+OTU_120,Fungi,99%,Basidiomycota,99%,Tremellomycetes,84%,Tremellales,81%,Christianseniaceae,48%,Christiansenia,48%
+OTU_122,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Phyllachorales,100%,Phyllachoraceae,100%,Plectosphaerella,100%
+OTU_123,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Ascobolaceae,100%,Ascobolus,100%
+OTU_124,Fungi,99%,Basidiomycota,89%,Tremellomycetes,80%,Tremellales,73%,Christianseniaceae,45%,Christiansenia,45%
+OTU_126,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,44%,Ascomycota incertae sedis,44%,Ascomycota incertae sedis,44%,Curvicladium,44%
+OTU_127,Fungi,84%,Basidiomycota,63%,Pucciniomycetes,15%,Pachnocybales,5%,Pachnocybaceae,5%,Pachnocybe,5%
+OTU_129,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Helotiales,99%,Helotiaceae,96%,Cudoniella,92%
+OTU_130,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Niessliaceae,52%,Niesslia,52%
+OTU_132,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pyronemataceae,100%,Orbicula,86%
+OTU_133,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,99%,Chaetomiaceae,85%,Chaetomium,41%
+OTU_135,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,99%,Chaetomidium,94%
+OTU_137,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,100%,Alternaria,100%
+OTU_138,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Mucoraceae,100%,Mucor,100%
+OTU_139,Fungi,99%,Basidiomycota,97%,Tremellomycetes,77%,Tremellales,77%,Tremellaceae,65%,Asterotremella,63%
+OTU_140,Fungi,100%,Ascomycota,100%,Sordariomycetes,96%,Hypocreales,96%,Nectriaceae,82%,Dematiocladium,26%
+OTU_143,Fungi,100%,Basidiomycota,98%,Microbotryomycetes,98%,Leucosporidiales,64%,Leucosporidiales incertae sedis,64%,Leucosporidium,54%
+OTU_144,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Thamnidiaceae,78%,Dicranophora,66%
+OTU_145,Fungi,93%,Ascomycota,93%,Ascomycota incertae sedis,38%,Ascomycota incertae sedis,38%,Ascomycota incertae sedis,38%,Scolecobasidiella,31%
+OTU_146,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,50%,Ascomycota incertae sedis,50%,Ascomycota incertae sedis,50%,Scolecobasidiella,50%
+OTU_147,Fungi,100%,Ascomycota,100%,Dothideomycetes,98%,Pleosporales,98%,Pleosporaceae,67%,Edenia,61%
+OTU_149,Fungi,100%,Ascomycota,100%,Eurotiomycetes,95%,Chaetothyriales,95%,Herpotrichiellaceae,95%,Cladophialophora,95%
+OTU_151,Fungi,99%,Ascomycota,99%,Eurotiomycetes,72%,Onygenales,39%,Arthrodermataceae,39%,Ctenomyces,37%
+OTU_152,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Neonectria,100%
+OTU_153,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Melanosporales,54%,Melanosporaceae,54%,Melanospora,54%
+OTU_154,Fungi,100%,Ascomycota,100%,Dothideomycetes,97%,Pleosporales,95%,Massarinaceae,48%,Massarina,38%
+OTU_158,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Chaetocladiaceae,56%,Chaetocladium,56%
+OTU_159,Fungi,78%,Ascomycota,60%,Eurotiomycetes,19%,Chaetothyriales,11%,Chaetothyriaceae,8%,Ceramothyrium,8%
+OTU_162,Fungi,100%,Basidiomycota,100%,Cystobasidiomycetes,100%,Cystobasidiales,100%,Cystobasidiaceae,100%,Cystobasidium,83%
+OTU_163,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,96%,Sporormiaceae,54%,Westerdykella,50%
+OTU_165,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideales,100%,Dothideaceae,100%,Dothidea,92%
+OTU_167,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Mucoraceae,100%,Rhizopus,100%
+OTU_168,Fungi,100%,Basidiomycota,100%,Microbotryomycetes,95%,Sporidiobolales,60%,Sporidiobolales incertae sedis,60%,Sporidiobolus,31%
+OTU_170,Fungi,100%,Ascomycota,100%,Pezizomycetes,96%,Pezizales,96%,Ascodesmidaceae,61%,Ascodesmis,40%
+OTU_171,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Capronia,95%
+OTU_172,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,99%,Pyrenochaeta,99%
+OTU_173,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,100%,Preussia,100%
+OTU_174,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Aspergillus,100%
+OTU_175,Fungi,96%,Basidiomycota,61%,Basidiomycota incertae sedis,8%,Basidiomycota incertae sedis,8%,Basidiomycota incertae sedis,8%,basidiomycete,8%
+OTU_176,Fungi,100%,Ascomycota,100%,Leotiomycetes,98%,Leotiomycetes incertae sedis,56%,Myxotrichaceae,51%,Amorphotheca,39%
+OTU_177,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Helotiales,97%,Helotiales incertae sedis,93%,Tetracladium,91%
+OTU_178,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pyronemataceae,99%,Cheilymenia,59%
+OTU_181,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,98%,Nectria,71%
+OTU_182,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreales incertae sedis,95%,Stachybotrys,95%
+OTU_183,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,100%,Preussia,97%
+OTU_185,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Botryosphaeriales,23%,Botryosphaeriaceae,23%,Microdiplodia,23%
+OTU_186,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Melanosporales,53%,Melanosporaceae,53%,Melanospora,53%
+OTU_188,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,98%,Phaeosphaeriaceae,64%,Phaeosphaeria,61%
+OTU_189,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Cordycipitaceae,99%,Simplicillium,98%
+OTU_190,Fungi,100%,Ascomycota,100%,Sordariomycetes,98%,Phyllachorales,62%,Phyllachoraceae,62%,Plectosphaerella,62%
+OTU_191,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,79%,Phaeosphaeria,71%
+OTU_192,Fungi,99%,Basidiomycota,95%,Tremellomycetes,88%,Tremellales,88%,Tremellaceae,66%,Tsuchiyaea,23%
+OTU_193,Fungi,100%,Ascomycota,100%,Dothideomycetes,98%,Pleosporales,97%,Pleosporales incertae sedis,38%,Plenodomus,36%
+OTU_194,Fungi,100%,Ascomycota,100%,Leotiomycetes,97%,Helotiales,89%,Helotiales incertae sedis,64%,Hyalodendriella,32%
+OTU_195,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Helotiales,91%,Dermateaceae,44%,Dermea,28%
+OTU_196,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,85%,Didymellaceae,68%,Leptosphaerulina,44%
+OTU_197,Fungi,100%,Ascomycota,100%,Sordariomycetes,94%,Hypocreales,94%,Nectriaceae,93%,Gibberella,64%
+OTU_198,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Coniochaetales,100%,Coniochaetaceae,100%,Coniochaeta,100%
+OTU_199,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Exophiala,54%
+OTU_200,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,99%,Ascomycota incertae sedis,99%,Ascomycota incertae sedis,99%,Scolecobasidiella,98%
+OTU_201,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,95%,Westerdykella,80%
+OTU_203,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Russulales,100%,Russulaceae,100%,Russula,90%
+OTU_204,Fungi,100%,Basidiomycota,99%,Tremellomycetes,98%,Tremellales,98%,Tremellaceae,81%,Cryptococcus,80%
+OTU_206,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Ascobolaceae,100%,Saccobolus,100%
+OTU_207,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Sordariomycetes incertae sedis,14%,Papulosaceae,6%,Papulosa,6%
+OTU_208,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Exophiala,69%
+OTU_209,Fungi,100%,Ascomycota,100%,Eurotiomycetes,98%,Chaetothyriales,98%,Herpotrichiellaceae,98%,Exophiala,42%
+OTU_210,Fungi,100%,Basidiomycota,100%,Tremellomycetes,100%,Tremellales,100%,Tremellaceae,93%,Bullera,50%
+OTU_211,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,96%,Bionectriaceae,80%,Hydropisphaera,74%
+OTU_212,Fungi,100%,Ascomycota,100%,Dothideomycetes,89%,Pleosporales,89%,Cucurbitariaceae,89%,Curreya,89%
+OTU_213,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,99%,Chaetomidium,63%
+OTU_214,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Leotiomycetes incertae sedis,28%,Leotiomycetes incertae sedis,27%,Collophora,27%
+OTU_215,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Lasiosphaeriaceae,100%,Podospora,85%
+OTU_216,Fungi,100%,Ascomycota,100%,Eurotiomycetes,98%,Chaetothyriales,98%,Herpotrichiellaceae,98%,Veronaea,33%
+OTU_217,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Leotiomycetes incertae sedis,16%,Leotiomycetes incertae sedis,16%,Collophora,16%
+OTU_219,Fungi,100%,Ascomycota,99%,Pezizomycetes,93%,Pezizales,93%,Ascobolaceae,60%,Saccobolus,35%
+OTU_220,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Mucoraceae,98%,Rhizopus,98%
+OTU_221,Fungi,100%,Ascomycota,100%,Pezizomycetes,99%,Pezizales,99%,Ascodesmidaceae,92%,Ascodesmis,74%
+OTU_222,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Hypocreales,99%,Nectriaceae,99%,Neonectria,91%
+OTU_223,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Tricholomataceae,100%,Mycena,99%
+OTU_225,Fungi,100%,Basidiomycota,100%,Ustilaginomycetes,100%,Ustilaginales,100%,Ustilaginaceae,100%,Ustilago,78%
+OTU_226,Fungi,100%,Ascomycota,100%,Sordariomycetes,61%,Sordariomycetes incertae sedis,61%,Batistiaceae,61%,Batistia,61%
+OTU_229,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Phyllachorales,98%,Phyllachoraceae,98%,Plectosphaerella,98%
+OTU_232,Fungi,100%,Basidiomycota,100%,Exobasidiomycetes,100%,Malasseziales,100%,Malasseziaceae,100%,Malassezia,100%
+OTU_235,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Helotiales,68%,Helotiales incertae sedis,50%,Chalara,24%
+OTU_236,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 1,100%,Mucorales 1 incertae sedis,100%,Umbelopsis,100%
+OTU_237,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Montagnulaceae,90%,Montagnula,86%
+OTU_238,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,95%,Gibberella,61%
+OTU_239,Fungi,100%,Basidiomycota,100%,Microbotryomycetes,100%,Leucosporidiales,82%,Leucosporidiales incertae sedis,82%,Leucosporidium,82%
+OTU_241,Fungi,100%,Ascomycota,100%,Leotiomycetes,98%,Helotiales,94%,Helotiales incertae sedis,52%,Chalara,21%
+OTU_242,Fungi,99%,Ascomycota,99%,Sordariomycetes,86%,Xylariales,54%,Xylariales incertae sedis,38%,Subramaniomyces,32%
+OTU_243,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Chaetosphaeriales,100%,Chaetosphaeriaceae,100%,Melanopsammella,100%
+OTU_244,Fungi,100%,Ascomycota,100%,Dothideomycetes,94%,Pleosporales,94%,Lophiostomataceae,65%,Herpotrichia,65%
+OTU_245,Fungi,100%,Ascomycota,100%,Leotiomycetes,98%,Helotiales,94%,Vibrisseaceae,53%,Vibrissea,53%
+OTU_246,Fungi,100%,Ascomycota,100%,Eurotiomycetes,94%,Chaetothyriales,94%,Herpotrichiellaceae,94%,Cladophialophora,54%
+OTU_247,Fungi,99%,Ascomycota,99%,Ascomycota incertae sedis,76%,Ascomycota incertae sedis,76%,Ascomycota incertae sedis,76%,Scolecobasidiella,76%
+OTU_249,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,99%,Sporormiaceae,84%,Westerdykella,72%
+OTU_250,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,74%,Chaetomium,72%
+OTU_251,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Nectria,90%
+OTU_253,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,99%,Sporormiaceae,89%,Westerdykella,74%
+OTU_254,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Xylariales,78%,Xylariales incertae sedis,75%,Parapleurotheciopsis,41%
+OTU_255,Fungi,100%,Ascomycota,99%,Eurotiomycetes,92%,Eurotiales,91%,Trichocomaceae,80%,Chromocleista,41%
+OTU_256,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Sarcinomyces,65%
+OTU_257,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,74%,Chaetomidium,62%
+OTU_258,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,68%,Chaetosphaeronema,39%
+OTU_259,Fungi,97%,Ascomycota,97%,Dothideomycetes,44%,Pleosporales,24%,Phaeotrichaceae,17%,Trichodelitschia,17%
+OTU_260,Fungi,100%,Ascomycota,100%,Sordariomycetes,98%,Microascales,93%,Microascaceae,87%,Petriella,71%
+OTU_261,Fungi,100%,Ascomycota,99%,Arthoniomycetes,68%,Arthoniales,68%,Roccellaceae,60%,Schismatomma,43%
+OTU_262,Fungi,100%,Basidiomycota,99%,Agaricomycetes,99%,Agaricales,69%,Tricholomataceae,39%,Ripartites,20%
+OTU_263,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Penicillium,90%
+OTU_264,Fungi,99%,Basidiomycota,69%,Tremellomycetes,56%,Tremellales,50%,Christianseniaceae,41%,Christiansenia,41%
+OTU_267,Fungi,100%,Ascomycota,100%,Sordariomycetes,93%,Hypocreales,85%,Nectriaceae,43%,Nectricladiella,16%
+OTU_269,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreales incertae sedis,40%,Stachybotrys,40%
+OTU_270,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreaceae,75%,Aphysiostroma,32%
+OTU_271,Fungi,100%,Basidiomycota,100%,Cystobasidiomycetes,100%,Cystobasidiales,100%,Cystobasidiaceae,100%,Cystobasidium,63%
+OTU_272,Fungi,100%,Ascomycota,100%,Pezizomycetes,98%,Pezizales,98%,Discinaceae,18%,Gyromitra,17%
+OTU_273,Fungi,99%,Fungi incertae sedis,98%,Zygomycota incertae sedis,98%,Mortierellales,96%,Mortierellaceae,96%,Dissophora,86%
+OTU_274,Fungi,100%,Ascomycota,100%,Dothideomycetes,96%,Pleosporales,96%,Sporormiaceae,78%,Preussia,36%
+OTU_275,Fungi,100%,Ascomycota,100%,Leotiomycetes,92%,Leotiomycetes incertae sedis,65%,Myxotrichaceae,51%,Amorphotheca,34%
+OTU_276,Fungi,79%,Fungi incertae sedis,79%,Zygomycota incertae sedis,79%,Mortierellales,79%,Mortierellaceae,79%,Mortierella,54%
+OTU_277,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,74%,Chaetomidium,65%
+OTU_278,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideales,100%,Dothioraceae,100%,Sydowia,80%
+OTU_279,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Niessliaceae,99%,Emericellopsis,99%
+OTU_281,Fungi,100%,Basidiomycota,99%,Agaricomycetes,99%,Agaricales,99%,Tricholomataceae,98%,Mycena,98%
+OTU_283,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Microascaceae,100%,Petriella,100%
+OTU_284,Fungi,100%,Basidiomycota,100%,Cystobasidiomycetes,100%,Cystobasidiales,100%,Cystobasidiaceae,100%,Rhodotorula 1 -Cystobasidiales,98%
+OTU_285,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,93%,Chaetosphaeronema,30%
+OTU_286,Fungi,100%,Ascomycota,100%,Eurotiomycetes,95%,Eurotiales,95%,Trichocomaceae,95%,Chromocleista,27%
+OTU_287,Fungi,97%,Ascomycota,90%,Eurotiomycetes,72%,Onygenales,62%,Arachnomycetaceae,47%,Arachnomyces,47%
+OTU_288,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Exophiala,63%
+OTU_290,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Helotiales,88%,Dermateaceae,22%,Neofabraea,19%
+OTU_291,Fungi,100%,Ascomycota,100%,Eurotiomycetes,50%,Chaetothyriales,12%,Herpotrichiellaceae,12%,Sorocybe,11%
+OTU_292,Fungi,100%,Ascomycota,100%,Pezizomycetes,99%,Pezizales,99%,Ascodesmidaceae,82%,Ascodesmis,54%
+OTU_293,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Thelebolales,100%,Thelebolaceae,100%,Thelebolus,100%
+OTU_294,Fungi,100%,Basidiomycota,98%,Tremellomycetes,97%,Tremellales,94%,Christianseniaceae,81%,Christiansenia,81%
+OTU_295,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Leotiomycetes incertae sedis,58%,Leotiomycetes incertae sedis,56%,Collophora,56%
+OTU_296,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Eupenicillium,90%
+OTU_297,Fungi,100%,Ascomycota,100%,Sordariomycetes,92%,Xylariales,67%,Xylariaceae,45%,Anthostomella,37%
+OTU_298,Fungi,100%,Ascomycota,100%,Sordariomycetes,94%,Xylariales,81%,Xylariaceae,39%,Anthostomella,25%
+OTU_300,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,99%,Microascaceae,99%,Doratomyces,99%
+OTU_302,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,97%,Microascaceae,97%,Petriella,59%
+OTU_305,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pyronemataceae,85%,Pulvinula,60%
+OTU_306,Fungi,100%,Ascomycota,100%,Leotiomycetes,85%,Helotiales,53%,Helotiales incertae sedis,34%,Naemacyclus,21%
+OTU_307,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Halosphaeriaceae,100%,Aniptodera,100%
+OTU_308,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Lasiosphaeriaceae,100%,Schizothecium,100%
+OTU_309,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,51%,Ascomycota incertae sedis,51%,Ascomycota incertae sedis,51%,Scolecobasidiella,48%
+OTU_310,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,97%,Lasiosphaeriaceae,84%,Podospora,36%
+OTU_313,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,79%,Ascomycota incertae sedis,79%,Ascomycota incertae sedis,79%,Scolecobasidiella,78%
+OTU_316,Fungi,100%,Ascomycota,100%,Dothideomycetes,81%,Dothideomycetes incertae sedis,76%,Dothideomycetes incertae sedis,76%,Kirschsteiniothelia,76%
+OTU_318,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,97%,Leptosphaeria,97%
+OTU_319,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Polyporales,100%,Coriolaceae,99%,Trametes,99%
+OTU_320,Fungi,99%,Fungi incertae sedis,99%,Zygomycota incertae sedis,99%,Mortierellales,99%,Mortierellaceae,99%,Dissophora,95%
+OTU_321,Fungi,99%,Ascomycota,99%,Archaeorhizomycetes,92%,Archaeorhizomycetales,83%,Archaeorhizomycetales incertae sedis,83%,Archaeorhizomyces,83%
+OTU_322,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Bionectriaceae,94%,Hydropisphaera,92%
+OTU_324,Fungi,63%,Fungi incertae sedis,60%,Zygomycota incertae sedis,60%,Mucorales 2,60%,Radiomycetaceae,47%,Hesseltinella,47%
+OTU_327,Fungi,100%,Ascomycota,100%,Leotiomycetes,76%,Leotiomycetes incertae sedis,69%,Myxotrichaceae,66%,Myxotrichum,43%
+OTU_328,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Eupenicillium,73%
+OTU_330,Fungi,100%,Basidiomycota,97%,Tremellomycetes,96%,Tremellales,94%,Sirobasidiaceae,30%,Fibulobasidium,30%
+OTU_331,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,88%,Sporormiaceae,61%,Westerdykella,53%
+OTU_335,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,95%,Hypocreaceae,22%,Hypomyces,22%
+OTU_336,Fungi,100%,Ascomycota,100%,Saccharomycetes,100%,Saccharomycetales,100%,Saccharomycetaceae,100%,Saccharomyces,100%
+OTU_337,Fungi,96%,Chytridiomycota,95%,Chytridiomycetes,95%,Spizellomycetales,89%,Olpidiaceae,33%,Powellomyces,33%
+OTU_338,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Clavicipitaceae,98%,Paecilomyces,95%
+OTU_339,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,99%,Eupenicillium,97%
+OTU_341,Fungi,99%,Basidiomycota,96%,Tremellomycetes,75%,Tremellales,70%,Christianseniaceae,61%,Christiansenia,61%
+OTU_342,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Niessliaceae,95%,Niesslia,95%
+OTU_344,Fungi,100%,Basidiomycota,99%,Tremellomycetes,98%,Tremellales,97%,Tremellaceae,75%,Cryptococcus,38%
+OTU_345,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,65%,Phaeosphaeria,65%
+OTU_346,Fungi,100%,Basidiomycota,100%,Agaricostilbomycetes,100%,Agaricostilbales,100%,Chionosphaeraceae,100%,Kurtzmanomyces,100%
+OTU_347,Fungi,99%,Ascomycota,99%,Ascomycota incertae sedis,9%,Ascomycota incertae sedis,9%,Ascomycota incertae sedis,9%,Curvicladium,9%
+OTU_348,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Thelephorales,100%,Thelephoraceae,100%,Tomentella,89%
+OTU_350,Fungi,100%,Basidiomycota,99%,Agaricomycetes,99%,Agaricales,99%,Tricholomataceae,99%,Mycena,93%
+OTU_351,Fungi,100%,Ascomycota,98%,Dothideomycetes,35%,Pleosporales,13%,Pleosporales incertae sedis,12%,Pseudorobillarda,12%
+OTU_352,Fungi,95%,Basidiomycota,65%,Agaricomycetes,61%,Russulales,15%,Podoscyphaceae,6%,Cymatoderma,3%
+OTU_354,Fungi,98%,Fungi incertae sedis,98%,Zygomycota incertae sedis,98%,Mortierellales,98%,Mortierellaceae,98%,Mortierella,58%
+OTU_358,Fungi,100%,Ascomycota,100%,Eurotiomycetes,96%,Chaetothyriales,94%,Herpotrichiellaceae,94%,Cladophialophora,38%
+OTU_359,Fungi,97%,Ascomycota,97%,Eurotiomycetes,93%,Onygenales,90%,Arthrodermataceae,90%,Ctenomyces,84%
+OTU_360,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Microascales,99%,Microascaceae,99%,Doratomyces,79%
+OTU_362,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,50%,Westerdykella,35%
+OTU_364,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,98%,Chaetomiaceae,56%,Chaetomidium,21%
+OTU_365,Fungi,90%,Basidiomycota,71%,Agaricomycetes,70%,Russulales,11%,Stereaceae,10%,Neoaleurodiscus,5%
+OTU_366,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Microascaceae,100%,Doratomyces,100%
+OTU_367,Fungi,100%,Ascomycota,100%,Leotiomycetes,92%,Helotiales,79%,Hemiphacidiaceae,44%,Fabrella,44%
+OTU_368,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,86%,Ascomycota incertae sedis,86%,Ascomycota incertae sedis,86%,Troposporella,86%
+OTU_369,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Sarcinomyces,99%
+OTU_370,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreaceae,87%,Hypomyces,86%
+OTU_371,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,64%,Leptosphaeria,64%
+OTU_372,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,98%,Microascaceae,98%,Petriella,75%
+OTU_373,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Mucoraceae,99%,Mucor,99%
+OTU_374,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Capronia,48%
+OTU_377,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,97%,Gibberella,75%
+OTU_378,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,94%,Alternaria,89%
+OTU_379,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Helotiales,91%,Helotiales incertae sedis,67%,Chalara,60%
+OTU_380,Fungi,100%,Ascomycota,100%,Dothideomycetes,89%,Pleosporales,75%,Testudinaceae,5%,Lepidosphaeria,4%
+OTU_381,Fungi,100%,Ascomycota,100%,Eurotiomycetes,89%,Chaetothyriales,89%,Herpotrichiellaceae,89%,Cladophialophora,45%
+OTU_383,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,88%,Ascomycota incertae sedis,87%,Ascomycota incertae sedis,87%,Scolecobasidiella,86%
+OTU_384,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,99%,Pleosporales incertae sedis,44%,Plenodomus,40%
+OTU_386,Fungi,100%,Ascomycota,100%,Pezizomycetes,96%,Pezizales,96%,Ascodesmidaceae,79%,Lasiobolus,57%
+OTU_388,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Montagnulaceae,87%,Karstenula,45%
+OTU_389,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Cordycipitaceae,99%,Cordyceps,31%
+OTU_392,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Helotiales,100%,Helotiales incertae sedis,54%,Chalara,40%
+OTU_394,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Microascaceae,100%,Microascus,99%
+OTU_395,Fungi,100%,Ascomycota,100%,Leotiomycetes,93%,Helotiales,69%,Helotiales incertae sedis,49%,Chalara,30%
+OTU_396,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Boletales,100%,Boletaceae,100%,Sclerogaster,100%
+OTU_398,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Clavicipitaceae,98%,Paecilomyces,96%
+OTU_399,Fungi,100%,Ascomycota,100%,Sordariomycetes,45%,Sordariales,44%,Chaetomiaceae,39%,Zopfiella,28%
+OTU_400,Fungi,100%,Ascomycota,99%,Leotiomycetes,70%,Helotiales,49%,Helotiales incertae sedis,35%,Pilidium,33%
+OTU_402,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,98%,Trichocomaceae,98%,Penicillium,66%
+OTU_403,Fungi,100%,Basidiomycota,100%,Tremellomycetes,100%,Cystofilobasidiales,100%,Cystofilobasidiaceae,100%,Udeniomyces,100%
+OTU_404,Fungi,86%,Ascomycota,83%,Ascomycota incertae sedis,36%,Ascomycota incertae sedis,36%,Ascomycota incertae sedis,36%,Anungitopsis,36%
+OTU_406,Fungi,100%,Basidiomycota,97%,Tremellomycetes,75%,Tremellales,62%,Christianseniaceae,52%,Christiansenia,52%
+OTU_409,Fungi,100%,Ascomycota,99%,Sordariomycetes,94%,Hypocreales,93%,Nectriaceae,58%,Nectricladiella,15%
+OTU_410,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideales,100%,Dothideaceae,100%,Dothidea,100%
+OTU_411,Fungi,92%,Basidiomycota,40%,Agaricomycetes,35%,Russulales,5%,Gloeocystidiellaceae,4%,Gloeocystidiellum,4%
+OTU_412,Fungi,100%,Ascomycota,100%,Dothideomycetes,94%,Pleosporales,94%,Pleosporales incertae sedis,53%,Camarosporium,51%
+OTU_413,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,98%,Eupenicillium,93%
+OTU_414,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Eupenicillium,87%
+OTU_415,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Ascobolaceae,100%,Saccobolus,100%
+OTU_416,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Lasiosphaeriaceae,100%,Zygopleurage,69%
+OTU_417,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Nectria,82%
+OTU_418,Fungi,100%,Ascomycota,100%,Sordariomycetes,95%,Hypocreales,63%,Hypocreaceae,45%,Hypocrea,25%
+OTU_419,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Niessliaceae,94%,Niesslia,94%
+OTU_420,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Sarcinomyces,70%
+OTU_421,Fungi,100%,Ascomycota,100%,Lecanoromycetes,74%,Lecanorales,74%,Dactylosporaceae,74%,Dactylospora,74%
+OTU_423,Fungi,100%,Ascomycota,100%,Sordariomycetes,54%,Microascales,34%,Microascaceae,27%,Microascus,13%
+OTU_424,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,79%,Pseudonectria,37%
+OTU_427,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,99%,Hypocreaceae,99%,Hypocrea,87%
+OTU_428,Fungi,97%,Basidiomycota,85%,Agaricomycetes,84%,Cantharellales,50%,Clavulinaceae,38%,Clavulicium,37%
+OTU_430,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 1,100%,Mucorales 1 incertae sedis,100%,Umbelopsis,100%
+OTU_431,Fungi,100%,Ascomycota,100%,Leotiomycetes,93%,Helotiales,71%,Helotiales incertae sedis,55%,Tetracladium,33%
+OTU_433,Fungi,100%,Ascomycota,100%,Dothideomycetes,98%,Pleosporales,96%,Sporormiaceae,93%,Westerdykella,93%
+OTU_434,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,72%,Alternaria,58%
+OTU_435,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,100%,Alternaria,100%
+OTU_436,Fungi,99%,Ascomycota,95%,Pezizomycetes,58%,Pezizales,58%,Ascobolaceae,49%,Saccobolus,29%
+OTU_438,Fungi,100%,Ascomycota,100%,Dothideomycetes,98%,Pleosporales,98%,Massarinaceae,37%,Byssothecium,34%
+OTU_439,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,97%,Westerdykella,86%
+OTU_441,Fungi,100%,Ascomycota,100%,Eurotiomycetes,99%,Verrucariales,78%,Verrucariaceae,78%,Verrucaria,62%
+OTU_442,Fungi,83%,Fungi incertae sedis,82%,Zygomycota incertae sedis,82%,Mortierellales,81%,Mortierellaceae,81%,Mortierella,58%
+OTU_443,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,69%,Leptosphaeria,60%
+OTU_444,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Phyllachorales,100%,Phyllachoraceae,100%,Plectosphaerella,100%
+OTU_445,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Clavicipitaceae,100%,Pochonia,87%
+OTU_446,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Helotiales,71%,Helotiales incertae sedis,47%,Chalara,37%
+OTU_447,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Hypocreales,97%,Ophiocordycipitaceae,26%,Harposporium,24%
+OTU_449,Fungi,99%,Ascomycota,99%,Dothideomycetes,54%,Botryosphaeriales,22%,Botryosphaeriaceae,22%,Otthia,10%
+OTU_450,Fungi,98%,Ascomycota,98%,Dothideomycetes,52%,Dothideomycetes incertae sedis,17%,Micropeltidaceae,12%,Stomiopeltis,12%
+OTU_452,Fungi,100%,Basidiomycota,99%,Agaricomycetes,99%,Agaricales,99%,Psathyrellaceae,92%,Coprinopsis,92%
+OTU_453,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,80%,Phaeosphaeria,80%
+OTU_454,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,100%,Ascomycota incertae sedis,100%,Ascomycota incertae sedis,100%,Trichothecium,100%
+OTU_455,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreales incertae sedis,100%,Stachybotrys,100%
+OTU_457,Fungi,100%,Basidiomycota,100%,Agaricomycetes,99%,Polyporales,69%,Coriolaceae,55%,Diplomitoporus,47%
+OTU_458,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,100%,Alternaria,99%
+OTU_459,Fungi,99%,Ascomycota,99%,Dothideomycetes,31%,Dothideomycetes incertae sedis,18%,Micropeltidaceae,18%,Stomiopeltis,18%
+OTU_460,Fungi,97%,Basidiomycota,92%,Tremellomycetes,63%,Tremellales,56%,Christianseniaceae,22%,Christiansenia,22%
+OTU_461,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,28%,Ascomycota incertae sedis,28%,Ascomycota incertae sedis,28%,Rhizosphaera,26%
+OTU_462,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Ascobolaceae,100%,Ascobolus,100%
+OTU_463,Fungi,100%,Ascomycota,100%,Dothideomycetes,98%,Pleosporales,61%,Montagnulaceae,28%,Karstenula,6%
+OTU_465,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Tricholomataceae,100%,Rhodocollybia,100%
+OTU_467,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,100%,Ascomycota incertae sedis,100%,Ascomycota incertae sedis,100%,Phaeomoniella,100%
+OTU_470,Fungi,100%,Basidiomycota,99%,Exobasidiomycetes,99%,Malasseziales,99%,Malasseziaceae,99%,Malassezia,99%
+OTU_472,Fungi,100%,Ascomycota,100%,Dothideomycetes,89%,Dothideomycetes incertae sedis,66%,Dothideomycetes incertae sedis,66%,Kirschsteiniothelia,65%
+OTU_473,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Tricholomataceae,72%,Omphalina,72%
+OTU_474,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,97%,Leptosphaeria,97%
+OTU_475,Fungi,75%,Fungi incertae sedis,75%,Zygomycota incertae sedis,75%,Zoopagales,74%,Piptocephalidaceae,52%,Kuzuhaea,49%
+OTU_477,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Chaetosphaeriales,100%,Chaetosphaeriaceae,100%,Melanopsammella,97%
+OTU_478,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Lophiostomataceae,98%,Lophiostoma,98%
+OTU_479,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Microascaceae,100%,Doratomyces,56%
+OTU_482,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Pleurotaceae,100%,Hohenbuehelia,100%
+OTU_483,Fungi,100%,Ascomycota,100%,Eurotiomycetes,96%,Onygenales,96%,Arthrodermataceae,80%,Ctenomyces,54%
+OTU_484,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,54%,Leptosphaeria,54%
+OTU_485,Fungi,100%,Ascomycota,100%,Eurotiomycetes,94%,Onygenales,88%,Arthrodermataceae,88%,Ctenomyces,54%
+OTU_486,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporales incertae sedis,61%,Corynespora,60%
+OTU_487,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Bionectriaceae,99%,Nectriopsis,97%
+OTU_488,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Penicillium,99%
+OTU_489,Fungi,47%,Blastocladiomycota,25%,Blastocladiomycetes,25%,Blastocladiales,25%,Coelomomycetaceae,25%,Coelomomyces,25%
+OTU_492,Fungi,100%,Ascomycota,99%,Dothideomycetes,50%,Pleosporales,49%,Pleosporales incertae sedis,38%,Astrosphaeriella,34%
+OTU_495,Fungi,100%,Ascomycota,100%,Arthoniomycetes,48%,Arthoniales,48%,Roccellaceae,37%,Schismatomma,19%
+OTU_496,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,98%,Halosphaeriaceae,98%,Lanspora,98%
+OTU_497,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Capnodiales,100%,Teratosphaeriaceae,62%,Teratosphaeria,53%
+OTU_498,Fungi,100%,Ascomycota,100%,Leotiomycetes,98%,Leotiomycetes incertae sedis,36%,Myxotrichaceae,28%,Amorphotheca,21%
+OTU_499,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Capnodiales,100%,Capnodiales incertae sedis,76%,Penidiella,74%
+OTU_500,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pezizaceae,100%,Peziza,96%
+OTU_504,Fungi,99%,Basidiomycota,79%,Agaricomycetes,76%,Polyporales,21%,Polyporaceae,17%,Sparsitubus,17%
+OTU_505,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,89%,Sporormiaceae,82%,Westerdykella,75%
+OTU_507,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,52%,Phaeodothis,52%
+OTU_510,Fungi,98%,Ascomycota,98%,Pezizomycetes,98%,Pezizales,98%,Ascobolaceae,98%,Saccobolus,98%
+OTU_511,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Ophiocordycipitaceae,90%,Elaphocordyceps,90%
+OTU_512,Fungi,100%,Ascomycota,100%,Leotiomycetes,96%,Helotiales,65%,Helotiaceae,41%,Crinula,19%
+OTU_514,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Thelephorales,88%,Thelephoraceae,86%,Pseudotomentella,51%
+OTU_516,Fungi,100%,Basidiomycota,94%,Tremellomycetes,87%,Tremellales,78%,Christianseniaceae,68%,Christiansenia,68%
+OTU_518,Fungi,100%,Ascomycota,98%,Dothideomycetes,63%,Pleosporales,27%,Pleosporales incertae sedis,19%,Astrosphaeriella,13%
+OTU_519,Fungi,100%,Basidiomycota,100%,Cystobasidiomycetes,99%,Erythrobasidiales,74%,Erythrobasidiaceae,74%,Rhodotorula 2 -Erythrobasidiales,56%
+OTU_520,Fungi,93%,Basidiomycota,88%,Agaricomycetes,87%,Auriculariales,65%,Hyaloriaceae,45%,Protodontia,38%
+OTU_521,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideomycetes incertae sedis,38%,Dothideomycetes incertae sedis,38%,Asteromella,31%
+OTU_524,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,100%,Halosphaeriaceae,100%,Aniptodera,91%
+OTU_525,Fungi,100%,Ascomycota,100%,Sordariomycetes,91%,Phyllachorales,75%,Phyllachoraceae,75%,Plectosphaerella,75%
+OTU_526,Fungi,100%,Ascomycota,99%,Dothideomycetes,97%,Pleosporales,88%,Montagnulaceae,45%,Montagnula,41%
+OTU_527,Fungi,100%,Ascomycota,100%,Sordariomycetes,97%,Hypocreales,97%,Hypocreales incertae sedis,49%,Xenocylindrocladium,30%
+OTU_528,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Microascales,99%,Microascaceae,99%,Petriella,99%
+OTU_529,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Helotiales,96%,Helotiales incertae sedis,88%,Tetracladium,85%
+OTU_530,Fungi,98%,Ascomycota,94%,Eurotiomycetes,17%,Chaetothyriales,10%,Herpotrichiellaceae,10%,Sorocybe,5%
+OTU_532,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Sordariales,85%,Lasiosphaeriaceae,85%,Zygopleurage,39%
+OTU_534,Fungi,98%,Basidiomycota,78%,Agaricomycetes,62%,Polyporales,27%,Polyporaceae,20%,Sparsitubus,15%
+OTU_535,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mortierellales,100%,Mortierellaceae,100%,Mortierella,98%
+OTU_537,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,99%,Chromocleista,90%
+OTU_538,Fungi,100%,Ascomycota,99%,Dothideomycetes,37%,Pleosporales,26%,Pleosporales incertae sedis,25%,Pseudorobillarda,23%
+OTU_539,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Hysteriales,75%,Hysteriaceae,70%,Gloniopsis,39%
+OTU_540,Fungi,99%,Chytridiomycota,99%,Chytridiomycetes,99%,Spizellomycetales,99%,Spizellomycetaceae,83%,Spizellomyces,82%
+OTU_541,Fungi,100%,Ascomycota,100%,Eurotiomycetes,99%,Eurotiales,98%,Trichocomaceae,73%,Eupenicillium,29%
+OTU_542,Fungi,100%,Ascomycota,100%,Lecanoromycetes,55%,Umbilicariales,28%,Umbilicariaceae,28%,Umbilicaria,27%
+OTU_543,Fungi,100%,Fungi incertae sedis,95%,Fungi incertae sedis,95%,Fungi incertae sedis,95%,Fungi incertae sedis,95%,leaf,95%
+OTU_544,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Tricholomataceae,99%,Mycena,82%
+OTU_545,Fungi,100%,Ascomycota,100%,Sordariomycetes,40%,Magnaporthales,40%,Magnaporthaceae,40%,Phialophora,40%
+OTU_546,Fungi,100%,Ascomycota,100%,Arthoniomycetes,54%,Arthoniales,54%,Roccellaceae,54%,Schismatomma,27%
+OTU_547,Fungi,100%,Ascomycota,100%,Dothideomycetes,97%,Pleosporales,94%,Sporormiaceae,54%,Preussia,39%
+OTU_548,Fungi,97%,Ascomycota,97%,Pezizomycetes,85%,Pezizales,85%,Rhizinaceae,54%,Rhizina,54%
+OTU_549,Fungi,100%,Ascomycota,100%,Eurotiomycetes,96%,Onygenales,74%,Arachnomycetaceae,49%,Arachnomyces,49%
+OTU_550,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,72%,Leptosphaeria,72%
+OTU_551,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Gibberella,99%
+OTU_552,Fungi,75%,Fungi incertae sedis,75%,Zygomycota incertae sedis,75%,Kickxellales,75%,Kickxellales incertae sedis,74%,Spiromyces,74%
+OTU_553,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 2,100%,Mucoraceae,100%,Mucor,100%
+OTU_554,Fungi,100%,Ascomycota,100%,Pezizomycetes,100%,Pezizales,100%,Pezizaceae,100%,Peziza,90%
+OTU_556,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,100%,Ascomycota incertae sedis,100%,Ascomycota incertae sedis,100%,Troposporella,100%
+OTU_558,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,93%,Chaetomidium,72%
+OTU_559,Fungi,100%,Ascomycota,100%,Leotiomycetes,88%,Helotiales,71%,Helotiaceae,65%,Crinula,26%
+OTU_560,Fungi,99%,Ascomycota,99%,Lecanoromycetes,54%,Agyriales,20%,Agyriaceae,20%,Sarea,17%
+OTU_561,Fungi,99%,Ascomycota,98%,Eurotiomycetes,44%,Eurotiales,37%,Elaphomycetaceae,28%,Monascus,28%
+OTU_562,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,96%,Eupenicillium,50%
+OTU_564,Fungi,100%,Ascomycota,100%,Sordariomycetes,91%,Hypocreales,91%,Nectriaceae,74%,Dematiocladium,35%
+OTU_565,Fungi,42%,Blastocladiomycota,6%,Blastocladiomycetes,6%,Blastocladiales,6%,Catenariaceae,6%,Catenomyces,6%
+OTU_566,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,99%,Niessliaceae,75%,Melanopsamma,72%
+OTU_568,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Clavicipitaceae,70%,Paecilomyces,41%
+OTU_569,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Hamigera,78%
+OTU_570,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Sporormiaceae,75%,Westerdykella,75%
+OTU_571,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Leotiomycetes incertae sedis,56%,Leotiomycetes incertae sedis,52%,Collophora,52%
+OTU_573,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariomycetes incertae sedis,100%,Sordariomycetes incertae sedis,100%,Polyscytalum,99%
+OTU_574,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Gibberella,100%
+OTU_575,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Entomophthorales 2,100%,Ancylistaceae,100%,Conidiobolus,100%
+OTU_576,Fungi,100%,Ascomycota,100%,Dothideomycetes,92%,Dothideomycetes incertae sedis,31%,Dothideomycetes incertae sedis,31%,Asteromella,31%
+OTU_577,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Cantharellales,99%,Ceratobasidiaceae,99%,Thanatephorus,29%
+OTU_578,Fungi,100%,Ascomycota,100%,Sordariomycetes,99%,Sordariales,71%,Cephalothecaceae,70%,Albertiniella,54%
+OTU_579,Fungi,100%,Ascomycota,100%,Sordariomycetes,84%,Microascales,50%,Microascaceae,34%,Graphium,26%
+OTU_581,Fungi,100%,Fungi incertae sedis,96%,Fungi incertae sedis,96%,Fungi incertae sedis,96%,Fungi incertae sedis,96%,leaf,96%
+OTU_583,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,94%,Lasiosphaeriaceae,69%,Cercophora,49%
+OTU_585,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mortierellales,100%,Mortierellaceae,100%,Mortierella,96%
+OTU_586,Fungi,100%,Ascomycota,100%,Eurotiomycetes,71%,Onygenales,64%,Arachnomycetaceae,28%,Arachnomyces,28%
+OTU_587,Fungi,98%,Ascomycota,98%,Eurotiomycetes,86%,Chaetothyriales,73%,Chaetothyriaceae,23%,Ceramothyrium,23%
+OTU_588,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,75%,Phaeosphaeria,52%
+OTU_589,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,54%,Leptosphaeria,49%
+OTU_590,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Psathyrellaceae,100%,Coprinellus,100%
+OTU_594,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Cordycipitaceae,100%,Lecanicillium,93%
+OTU_595,Fungi,100%,Ascomycota,100%,Eurotiomycetes,96%,Chaetothyriales,96%,Herpotrichiellaceae,96%,Exophiala,58%
+OTU_596,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,33%,Ascomycota incertae sedis,33%,Ascomycota incertae sedis,33%,Scolecobasidiella,31%
+OTU_597,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Thelephorales,100%,Thelephoraceae,100%,uncultured_Thelephoraceae,48%
+OTU_599,Fungi,100%,Ascomycota,100%,Sordariomycetes,92%,Sordariales,91%,Lasiosphaeriaceae,90%,Zygopleurage,35%
+OTU_600,Fungi,100%,Fungi incertae sedis,100%,Zygomycota incertae sedis,100%,Mucorales 1,100%,Mucorales 1 incertae sedis,100%,Umbelopsis,100%
+OTU_602,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Bionectriaceae,100%,Bionectria,100%
+OTU_603,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,88%,Macroventuria,88%
+OTU_604,Fungi,95%,Chytridiomycota,90%,Chytridiomycetes,90%,Rhizophydiales,85%,Rhizophydiales incertae sedis,78%,Rhizophydiales incertae sedis,78%
+OTU_605,Fungi,100%,Basidiomycota,100%,Tremellomycetes,91%,Tremellales,78%,Christianseniaceae,69%,Christiansenia,69%
+OTU_607,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Onygenales,99%,Arachnomycetaceae,99%,Arachnomyces,99%
+OTU_610,Fungi,98%,Basidiomycota,93%,Tremellomycetes,24%,Cystofilobasidiales,24%,Cystofilobasidiaceae,24%,Udeniomyces,23%
+OTU_611,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariomycetes incertae sedis,100%,Glomerellaceae,100%,Colletotrichum,83%
+OTU_612,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,55%,Ascomycota incertae sedis,55%,Ascomycota incertae sedis,55%,Saccardoella,52%
+OTU_613,Fungi,100%,Ascomycota,100%,Dothideomycetes,75%,Pleosporales,68%,Pleosporales incertae sedis,13%,Plenodomus,8%
+OTU_614,Fungi,100%,Basidiomycota,99%,Agaricomycetes,98%,Agaricales,95%,Psathyrellaceae,85%,Coprinopsis,85%
+OTU_616,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Elaphomycetaceae,63%,Monascus,63%
+OTU_619,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,58%,Phaeosphaeria,54%
+OTU_620,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,87%,Ascomycota incertae sedis,87%,Ascomycota incertae sedis,87%,Scolecobasidiella,69%
+OTU_621,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Capnodiales,100%,Davidiellaceae,100%,Davidiella,100%
+OTU_622,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Dothideales,100%,Dothioraceae,100%,Sydowia,81%
+OTU_624,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Marasmiaceae,37%,Marasmius,31%
+OTU_625,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,95%,Phaeosphaeria,95%
+OTU_626,Fungi,98%,Ascomycota,97%,Ascomycota incertae sedis,83%,Ascomycota incertae sedis,83%,Ascomycota incertae sedis,83%,Anungitopsis,83%
+OTU_627,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Leotiomycetes incertae sedis,38%,Leotiomycetes incertae sedis,38%,Collophora,38%
+OTU_628,Fungi,77%,Ascomycota,68%,Dothideomycetes,28%,Microthyriales,13%,Microthyriaceae,13%,Microthyrium,13%
+OTU_629,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Chaetomiaceae,98%,Chaetomium,96%
+OTU_631,Fungi,99%,Basidiomycota,97%,Tremellomycetes,84%,Tremellales,84%,Tremellaceae,61%,Cryptococcus,46%
+OTU_632,Fungi,100%,Ascomycota,100%,Eurotiomycetes,91%,Eurotiales,91%,Trichocomaceae,84%,Eupenicillium,78%
+OTU_633,Fungi,100%,Ascomycota,100%,Leotiomycetes,25%,Helotiales,25%,Helotiaceae,22%,Tricladium,21%
+OTU_635,Fungi,100%,Ascomycota,100%,Dothideomycetes,95%,Pleosporales,89%,Pleosporaceae,44%,Dendryphiella,11%
+OTU_636,Fungi,100%,Ascomycota,100%,Leotiomycetes,96%,Helotiales,82%,Helotiales incertae sedis,49%,Eleutheromyces,28%
+OTU_639,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,99%,Eupenicillium,71%
+OTU_642,Fungi,100%,Ascomycota,100%,Sordariomycetes,97%,Chaetosphaeriales,92%,Chaetosphaeriaceae,92%,Chaetosphaeria,90%
+OTU_643,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Agaricaceae,100%,Agaricus,99%
+OTU_644,Fungi,100%,Ascomycota,100%,Dothideomycetes,71%,Pleosporales,48%,Pleosporaceae,31%,Dendryphiella,6%
+OTU_645,Fungi,100%,Basidiomycota,87%,Tremellomycetes,26%,Tremellales,26%,Aporpiaceae,24%,Elmerina,24%
+OTU_646,Fungi,100%,Ascomycota,100%,Leotiomycetes,93%,Leotiomycetes incertae sedis,57%,Myxotrichaceae,42%,Amorphotheca,21%
+OTU_647,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Russulales,100%,Bondarzewiaceae,100%,Heterobasidion,100%
+OTU_648,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,98%,Alternaria,89%
+OTU_649,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Helotiales,96%,Helotiales incertae sedis,70%,Chalara,70%
+OTU_650,Fungi,79%,Ascomycota,77%,Sordariomycetes,56%,Coronophorales,37%,Coronophorales incertae sedis,22%,Coronophorales,22%
+OTU_651,Fungi,97%,Ascomycota,95%,Sordariomycetes,84%,Coronophorales,19%,Scortechiniaceae,15%,Scortechiniella,12%
+OTU_652,Fungi,100%,Ascomycota,100%,Eurotiomycetes,89%,Chaetothyriales,89%,Herpotrichiellaceae,88%,Exophiala,50%
+OTU_653,Fungi,100%,Ascomycota,100%,Leotiomycetes,99%,Leotiomycetes incertae sedis,28%,Leotiomycetes incertae sedis,25%,Collophora,25%
+OTU_655,Fungi,100%,Ascomycota,100%,Leotiomycetes,100%,Helotiales,64%,Helotiaceae,36%,Crinula,18%
+OTU_656,Fungi,100%,Ascomycota,100%,Sordariomycetes,70%,Sordariales,70%,Chaetomiaceae,57%,Corynascus,30%
+OTU_657,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,86%,Montagnulaceae,49%,Bimuria,38%
+OTU_658,Fungi,100%,Basidiomycota,99%,Agaricomycetes,96%,Hymenochaetales,61%,Hymenochaetaceae,55%,Pyrrhoderma,51%
+OTU_659,Fungi,53%,Blastocladiomycota,39%,Blastocladiomycetes,39%,Blastocladiales,39%,Catenariaceae,35%,Catenophlyctis,27%
+OTU_660,Fungi,100%,Basidiomycota,98%,Tremellomycetes,97%,Tremellales,97%,Tremellaceae,88%,Asterotremella,49%
+OTU_662,Fungi,60%,Chytridiomycota,12%,Monoblepharidomycetes,9%,Monoblepharidales,9%,Oedogoniomycetaceae,9%,Oedogoniomyces,9%
+OTU_663,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Eurotiales,100%,Trichocomaceae,100%,Aspergillus,71%
+OTU_664,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Nectriaceae,100%,Gibberella,100%
+OTU_665,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,69%,Phaeosphaeria,69%
+OTU_667,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,92%,Ascomycota incertae sedis,92%,Ascomycota incertae sedis,92%,Scolecobasidiella,82%
+OTU_668,Fungi,99%,Ascomycota,99%,Eurotiomycetes,99%,Onygenales,78%,Arthrodermataceae,76%,Ctenomyces,48%
+OTU_671,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,100%,Hypocreaceae,100%,Trichoderma,56%
+OTU_672,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Pleosporaceae,98%,Pyrenochaeta,95%
+OTU_673,Fungi,89%,Ascomycota,86%,Laboulbeniomycetes,27%,Pyxidiophorales,27%,Pyxidiophoraceae,27%,Pyxidiophora,27%
+OTU_675,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Phaeosphaeriaceae,75%,Phaeosphaeria,75%
+OTU_676,Fungi,100%,Basidiomycota,99%,Agaricomycetes,98%,Agaricales,95%,Psathyrellaceae,61%,Coprinopsis,61%
+OTU_678,Fungi,98%,Fungi incertae sedis,97%,Zygomycota incertae sedis,97%,Mortierellales,97%,Mortierellaceae,97%,Gamsiella,43%
+OTU_679,Fungi,100%,Basidiomycota,100%,Agaricomycetes,98%,Russulales,69%,Gloeocystidiellaceae,43%,Gloeocystidiellum,43%
+OTU_681,Fungi,100%,Ascomycota,100%,Eurotiomycetes,100%,Chaetothyriales,100%,Herpotrichiellaceae,100%,Capronia,70%
+OTU_682,Fungi,100%,Basidiomycota,100%,Cystobasidiomycetes,100%,Cystobasidiales,100%,Cystobasidiaceae,100%,Rhodotorula 1 -Cystobasidiales,75%
+OTU_683,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Hypocreales,99%,Nectriaceae,98%,Nectria,38%
+OTU_685,Fungi,100%,Ascomycota,100%,Ascomycota incertae sedis,98%,Ascomycota incertae sedis,98%,Ascomycota incertae sedis,98%,Phaeomoniella,98%
+OTU_687,Fungi,100%,Ascomycota,100%,Leotiomycetes,73%,Helotiales,52%,Helotiaceae,29%,Tricladium,18%
+OTU_689,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Agaricaceae,98%,Macrolepiota,97%
+OTU_690,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Didymellaceae,46%,Didymella,35%
+OTU_691,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,97%,Lophiostomataceae,67%,Herpotrichia,67%
+OTU_692,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,99%,Didymellaceae,47%,Stagonosporopsis,21%
+OTU_694,Fungi,100%,Ascomycota,100%,Dothideomycetes,100%,Pleosporales,100%,Leptosphaeriaceae,74%,Leptosphaeria,74%
+OTU_695,Fungi,100%,Fungi incertae sedis,99%,Zygomycota incertae sedis,99%,Mortierellales,99%,Mortierellaceae,99%,Mortierella,84%
+OTU_697,Fungi,100%,Basidiomycota,100%,Tremellomycetes,100%,Cystofilobasidiales,100%,Cystofilobasidiaceae,100%,Guehomyces,100%
+OTU_698,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Agaricales,100%,Lycoperdaceae,100%,Lycoperdon,100%
+OTU_699,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Sordariales,100%,Lasiosphaeriaceae,100%,Schizothecium,100%
+OTU_700,Fungi,100%,Basidiomycota,100%,Agaricomycetes,100%,Sebacinales,100%,Sebacinaceae,100%,Tremellodendron,100%
+OTU_703,Fungi,63%,Ascomycota,62%,Dothideomycetes,32%,Pleosporales,22%,Pleosporales incertae sedis,21%,Caryosporella,21%
+OTU_704,Fungi,92%,Ascomycota,69%,Sordariomycetes,7%,Microascales,4%,Microascaceae,3%,Ambrosiella,3%
+OTU_705,Fungi,100%,Ascomycota,100%,Sordariomycetes,100%,Xylariales,97%,Xylariaceae,80%,Anthostomella,79%
+OTU_706,Fungi,100%,Ascomycota,100%,Eurotiomycetes,60%,Onygenales,37%,Arthrodermataceae,37%,Ctenomyces,27%
+OTU_707,Fungi,100%,Ascomycota,100%,Dothideomycetes,99%,Pleosporales,99%,Phaeosphaeriaceae,39%,Chaetosphaeronema,29%
